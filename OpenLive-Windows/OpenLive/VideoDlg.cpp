@@ -94,6 +94,18 @@ BEGIN_MESSAGE_MAP(CVideoDlg, CDialogEx)
 
 	ON_CBN_SELCHANGE(IDC_CBXROLE_VIDEO, &CVideoDlg::OnCbnSelchangeCmbRole)
 
+	ON_MESSAGE(WM_MSGID(EID_ERROR), &CVideoDlg::OnEIDError)
+	ON_MESSAGE(WM_MSGID(EID_AUDIO_QUALITY), &CVideoDlg::OnEIDAudioQuality)
+	ON_MESSAGE(WM_MSGID(EID_AUDIO_DEVICE_STATE_CHANGED), &CVideoDlg::OnEIDAudioDeviceStateChanged)
+	ON_MESSAGE(WM_MSGID(EID_VIDEO_DEVICE_STATE_CHANGED), &CVideoDlg::OnEIDVideoDeviceStateChanged)
+	ON_MESSAGE(WM_MSGID(EID_USER_MUTE_AUDIO), &CVideoDlg::OnEIDUserMuteAudio)
+	ON_MESSAGE(WM_MSGID(EID_USER_MUTE_VIDEO), &CVideoDlg::OnEIDUserMuteVideo)
+	ON_MESSAGE(WM_MSGID(EID_LOCAL_VIDEO_STAT), &CVideoDlg::OnEIDLocalVideoStat)
+	ON_MESSAGE(WM_MSGID(EID_NETWORK_QUALITY), &CVideoDlg::OnNetworkQuality)
+	ON_MESSAGE(WM_MSGID(EID_LEAVE_CHANNEL), &CVideoDlg::OnEIDLeaveChannel)
+	ON_MESSAGE(WM_MSGID(EID_FIRST_REMOTE_VIDEO_FRAME), &CVideoDlg::OnEIDFirstRemoteVideoFrame)
+	ON_MESSAGE(WM_WINDOWSHARE, &CVideoDlg::OnWindowShareStart)
+
 	ON_WM_SHOWWINDOW()
 END_MESSAGE_MAP()
 
@@ -489,7 +501,7 @@ void CVideoDlg::OnBnClickedScreenshare()
 {
 	IRtcEngine *lpRtcEngine = CAgoraObject::GetEngine();
 
-	CAgoraObject::GetAgoraObject()->EnableScreenCapture(::GetDesktopWindow(), 15, NULL, TRUE);
+	CAgoraObject::GetAgoraObject()->EnableScreenCapture(NULL, 15, NULL, TRUE);
 	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
 
 	m_wndLocal.Invalidate(TRUE);
